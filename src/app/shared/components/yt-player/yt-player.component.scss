@@ -1,0 +1,35 @@
+.yt-wrapper {
+  width: 280px;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+  background: #000;
+  font-family: 'Press Start 2P', cursive;
+  overflow: hidden;
+}
+
+.yt-title-bar {
+  background: linear-gradient(90deg, #0a0a1a, #1a1a4e);
+  padding: 8px 10px;
+  font-size: 0.4rem;
+  color: #00ffff;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.yt-video {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.yt-wrapper:hover .yt-video {
+  max-height: 200px;
+  opacity: 1;
+}
+
+#yt-container iframe {
+  width: 280px !important;
+  height: 158px !important;
+  display: block;
+}

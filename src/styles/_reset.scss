@@ -1,0 +1,30 @@
+// ── Reset base ───────────────────────────────────────────────────────────────
+// Elimina márgenes/paddings por defecto y aplica el tema oscuro arcade
+// a toda la app. Usa las CSS custom properties definidas en _variables.scss.
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Fondo negro, fuente arcade y color neon-green como base de toda la app
+html, body, app-root {
+  height: 100%;
+  width: 100%;
+  background-color: var(--dark-bg);
+  color: var(--neon-green);
+  font-family: var(--font-arcade);
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Todos los botones heredan la fuente arcade por defecto
+button {
+  font-family: var(--font-arcade);
+  cursor: pointer;
+}

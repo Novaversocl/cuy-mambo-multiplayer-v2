@@ -1,0 +1,60 @@
+<div class="arcade-wrapper">
+  <div class="crt-lines"></div>
+
+  <div class="arcade-content">
+
+    <div class="brand">NOVAVERSO® GAME</div>
+
+    <div class="title-block">
+      <h1 class="game-title">CUY<br>MAMBO</h1>
+      <p class="title-sub">© 2024 NOVAVERSO</p>
+    </div>
+
+    <div class="cuy-art">
+      <img src="assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif" alt="Cuy Mambo" class="cuy-sprite">
+    </div>
+
+    <nav class="arcade-menu">
+      @for (item of menuItems; track item.label; let i = $index) {
+        <arcade-button
+          [label]="item.label"
+          [variant]="item.variant"
+          [blink]="item.blink"
+          [active]="activeIndex() === i"
+          (mouseenter)="onHover(i)"
+          (click)="navigate(item.route, i, item.action)"
+        />
+      }
+    </nav>
+
+    <div class="footer-credits">
+      <p class="blink-slow">© NOVAVERSO — BUILT WITH ANGULAR</p>
+    </div>
+
+  </div>
+</div>
+
+@if (showLeaderboard()) {
+  <div class="lb-overlay" (click)="closeLeaderboard()">
+    <div class="lb-modal" (click)="$event.stopPropagation()">
+      <h2 class="lb-title">🏆 MEJORES JUGADORES</h2>
+      @if (isLoading()) {
+        <div class="lb-spinner"></div>
+      } @else if (leaderboard().length === 0) {
+        <p class="lb-empty">AÚN NO HAY CAMPEONES</p>
+      } @else {
+        <ol class="lb-list">
+          @for (entry of leaderboard(); track entry.name; let i = $index) {
+            <li class="lb-entry" [class.lb-top]="i === 0">
+              <span class="lb-rank">#{{ i + 1 }}</span>
+              <span class="lb-char">{{ charIcon(entry.charId) }}</span>
+              <span class="lb-name">{{ entry.name }}</span>
+              <span class="lb-wins">{{ entry.wins }}V</span>
+            </li>
+          }
+        </ol>
+      }
+      <button class="lb-close" (click)="closeLeaderboard()">CERRAR</button>
+    </div>
+  </div>
+}

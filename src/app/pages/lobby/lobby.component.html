@@ -1,0 +1,111 @@
+<div class="lobby-screen">
+
+  <button class="music-toggle" (click)="toggleMusic()" [title]="musicMuted() ? 'Activar música' : 'Silenciar música'">
+    {{ musicMuted() ? '🔇' : '🔊' }}
+  </button>
+
+  <!-- ESTADO: FORM -->
+  @if (state() === 'form') {
+    <div class="lobby-layout">
+
+      <!-- Panel izquierdo: preview grande del personaje seleccionado -->
+      <div class="preview-panel">
+        <div class="preview-glow">
+          <img class="preview-big"
+            [src]="characterGifs[selectedCharacter().id] || selectedCharacter().preview"
+            [alt]="selectedCharacter().name" />
+        </div>
+        <div class="preview-name">{{ selectedCharacter().name }}</div>
+        <div class="preview-badge">LISTO PARA LUCHAR</div>
+      </div>
+
+      <!-- Panel derecho: selección + formulario -->
+      <div class="select-panel">
+
+        <div class="game-title">
+          <h1>CUY MAMBO</h1>
+          <span class="subtitle">ELIGE TU PERSONAJE</span>
+        </div>
+
+        <div class="character-grid">
+          @for (char of characters; track char.id) {
+            <div
+              class="character-card"
+              [class.selected]="selectedCharacter().id === char.id"
+              (mouseenter)="hoverCharacter()"
+              (click)="selectCharacter(char)"
+            >
+              <img [src]="char.preview" [alt]="char.name" />
+              <span>{{ char.name }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="form-area">
+          <input
+            id="player-name"
+            type="text"
+            [ngModel]="playerName()"
+            (ngModelChange)="playerName.set($event)"
+            maxlength="12"
+            placeholder="TU NOMBRE"
+            autocomplete="off"
+            (keydown.enter)="joinLobby()"
+          />
+          @if (errorMsg()) {
+            <p class="error">{{ errorMsg() }}</p>
+          }
+          <div class="btn-fight-wrapper">
+            <arcade-button label="⚔ BUSCAR PARTIDA" variant="primary" size="m" [showIcon]="false" (click)="joinLobby()" />
+          </div>
+        </div>
+
+        @if (waitingPlayers().length > 0) {
+          <div class="waiting-list">
+            <span class="waiting-label">EN LOBBY</span>
+            @for (p of waitingPlayers(); track p) {
+              <span class="waiting-item">● {{ p }}</span>
+            }
+          </div>
+        }
+
+      </div>
+    </div>
+  }
+
+  <!-- ESTADO: WAITING -->
+  @if (state() === 'waiting') {
+    <div class="versus-screen">
+      <div class="versus-title">BUSCANDO RIVAL...</div>
+      <div class="versus-row">
+        <div class="versus-player">
+          <img [src]="selectedCharacter().preview" [alt]="selectedCharacter().name" />
+          <span class="versus-playername">{{ playerName() }}</span>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="versus-player rival">
+          <div class="silhouette"></div>
+          <span class="versus-playername blink">???</span>
+        </div>
+      </div>
+      @if (waitingPlayers().length > 0) {
+        <div class="waiting-list">
+          <span class="waiting-label">EN LOBBY</span>
+          @for (p of waitingPlayers(); track p) {
+            <span class="waiting-item">● {{ p }}</span>
+          }
+        </div>
+      }
+
+    </div>
+  }
+
+  <!-- ESTADO: FOUND -->
+  @if (state() === 'found') {
+    <div class="found-screen">
+      <div class="found-text">¡RIVAL ENCONTRADO!</div>
+      <div class="found-sub">PREPARANDO BATALLA...</div>
+    </div>
+  }
+
+</div>

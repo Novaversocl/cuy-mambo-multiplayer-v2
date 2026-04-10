@@ -1,0 +1,174 @@
+/* ── Reset + Body ─────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #050508;
+  background-image: radial-gradient(ellipse at 50% 40%, #0d0d22 0%, #050508 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Press Start 2P', monospace;
+}
+
+/* ── Monitor bezel ────────────────────────────────────────── */
+#monitor-bezel {
+  background: linear-gradient(160deg, #2e2e2e 0%, #1a1a1a 60%, #111 100%);
+  padding: 22px 26px 34px;
+  border-radius: 22px;
+  box-shadow:
+    0 0 0 2px #3a3a3a,
+    0 0 0 4px #111,
+    0 12px 50px #000,
+    inset 0 2px 3px #555,
+    inset 0 -3px 6px #000;
+  position: relative;
+}
+
+/* LED de encendido */
+#monitor-bezel::after {
+  content: '';
+  display: block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66, 0 0 12px #00ff6655;
+  margin: 10px auto 0;
+}
+
+#monitor-screen {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 0 2px #000;
+}
+
+/* ── HUD ──────────────────────────────────────────────────── */
+#hud {
+  width: 800px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 8px;
+  background: #080814;
+  border-bottom: 2px solid #1a1a2e;
+  box-sizing: border-box;
+}
+
+/* Cada lado ocupa el espacio disponible */
+.hud-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-side-right {
+  flex-direction: row-reverse;
+}
+
+/* Columna barra + nombre debajo */
+.hud-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Nombre del jugador — debajo de la barra */
+.hud-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+#match-p1 { color: #00ff88; text-align: left; }
+#match-p2 { color: #00ccff; text-align: right; }
+
+.hud-side-right .hud-name { text-align: right; }
+
+/* Número de HP */
+.hp-number {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: color 0.3s;
+  color: #00ff88;
+}
+
+/* Contenedor de la barra */
+.hp-bar-wrap {
+  width: 100%;
+  height: 14px;
+  background: #111;
+  border: 2px solid #333;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Barra local: verde exterior (izq) → rojo interior (der, hacia VS) */
+.hp-bar-local {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right,
+    #44ff44 0%,
+    #aaff00 30%,
+    #ffdd00 55%,
+    #ff6600 75%,
+    #ff0000 100%
+  );
+  transition: width 0.15s ease-out;
+}
+
+/* Barra rival: verde exterior (der) → rojo interior (izq, hacia VS) */
+.hp-bar-remote {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to left,
+    #44ff44 0%,
+    #aaff00 30%,
+    #ffdd00 55%,
+    #ff6600 75%,
+    #ff0000 100%
+  );
+  transition: width 0.15s ease-out;
+  float: right;
+}
+
+/* Centro VS */
+.hud-center {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.match-vs {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #ff4466;
+  text-shadow: 0 0 8px #ff446688;
+  letter-spacing: 2px;
+}
+
+#hiscore { color: #ffe066; }
+
+/* ── Marcador de rondas ─────────────────────────���─────────── */
+.round-score-wrap {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+#round-score-p1 { color: #00ff88; font-size: 16px; letter-spacing: 3px; }
+#round-score-p2 { color: #00ccff; font-size: 16px; letter-spacing: 3px; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+  margin-top: 12px;
+  font-size: 5px;
+  color: #1e1e2e;
+  letter-spacing: 1px;
+}

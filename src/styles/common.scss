@@ -1,0 +1,13 @@
+// ── Clases utilitarias globales ──────────────────────────────────────────────
+// Disponibles en todos los componentes sin necesidad de importar nada.
+// IMPORTANTE: no duplicar @keyframes blink en componentes individuales.
+
+// Texto parpadeante lento (usado en créditos, avisos de espera, etc.)
+.blink-slow {
+  animation: blink 1.2s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

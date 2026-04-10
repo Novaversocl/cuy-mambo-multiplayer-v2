@@ -1,0 +1,23 @@
+<div class="arcade-hall" [class.glitching]="isGlitching" (click)="onInsertCoin()">
+
+  <div class="bg-image"></div>
+  <div class="scanlines"></div>
+  <div class="static-overlay" [class.active]="isStatic"></div>
+
+  <div class="tv-screen">
+    <h1 class="marquee">CUY MAMBO</h1>
+    <div class="insert-coin-btn">INSERT COIN</div>
+  </div>
+
+  <div class="winamp-wrapper" (click)="$event.stopPropagation()">
+    <app-yt-player />
+  </div>
+
+  <button class="day-night-btn" [class.night-mode]="isNight"
+    (click)="$event.stopPropagation(); toggleNight()">
+    {{ isNight ? '☀ DIA' : '☾ NOCHE' }}
+  </button>
+
+  <div class="night-overlay" [class.active]="isNight"></div>
+  <div class="flash-overlay" [class.active]="isFlashing"></div>
+</div>

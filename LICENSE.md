@@ -1,0 +1,44 @@
+===========================================================
+ESPAÑOL / SPANISH
+===========================================================
+
+© 2026 novaverso. Todos los derechos reservados.
+
+AVISO DE LICENCIA LIMITADA PARA PORTAFOLIO:
+
+Se concede permiso únicamente para la visualización, descarga y ejecución local de este código con fines de evaluación técnica, académica o de reclutamiento profesional.
+
+QUEDA ESTRICTAMENTE PROHIBIDO:
+1. El uso comercial de este código, lógica de juego o activos visuales/auditivos.
+2. La redistribución o publicación de este código en cualquier plataforma (web, móvil o escritorio) bajo un nombre igual o distinto.
+3. La creación de obras derivadas con fines de lucro.
+
+CUALQUIER VIOLACIÓN A ESTOS TÉRMINOS SERÁ SUJETA A:
+1. Solicitudes de eliminación por infracción de derechos de autor (DMCA Takedown) en plataformas de distribución.
+2. Acciones legales pertinentes bajo las leyes de propiedad intelectual internacionales.
+
+Los activos de arte (Cuy Mambo y otros personajes) son propiedad intelectual original y su uso fuera de este repositorio no está autorizado.
+
+Para consultas comerciales o licencias de uso, contactar a: portafolioformulario2024@gmail.com
+
+===========================================================
+ENGLISH / INGLÉS
+===========================================================
+© 2026 novaverso. All rights reserved.
+
+LIMITED PORTFOLIO LICENSE NOTICE:
+
+Permission is granted solely for the viewing, downloading, and local execution of this code for technical evaluation, academic purposes, or professional recruitment.
+
+STRICTLY PROHIBITED:
+1. Commercial use of this code, game logic, or visual/audio assets.
+2. Redistribution or publication of this code on any platform (web, mobile, or desktop) under the same or a different name.
+3. Creation of derivative works for profit.
+
+ANY VIOLATION OF THESE TERMS WILL BE SUBJECT TO:
+1. Takedown requests for copyright infringement (DMCA Takedown) on distribution platforms.
+2. Relevant legal actions under international intellectual property laws.
+
+Art assets (Cuy Mambo and other characters) are original intellectual property and their use outside of this repository is not authorized.
+
+For commercial inquiries or usage licenses, contact: portafolioformulario2024@gmail.com

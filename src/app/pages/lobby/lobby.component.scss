@@ -1,0 +1,509 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* ── Botón mute ────────────────────────────────────────────── */
+.music-toggle {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  z-index: 100;
+  background: #ffffff0f;
+  border: 1px solid #ffffff22;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+
+  &:hover {
+    background: #ffffff1e;
+    transform: scale(1.1);
+  }
+}
+
+/* ── Pantalla base ─────────────────────────────────────────── */
+.lobby-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 50%, #0d1f3c 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, #1a0d2e 0%, transparent 60%),
+    #060610;
+  font-family: v.$font-arcade;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ── Layout principal (form) ───────────────────────────────── */
+.lobby-layout {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 820px;
+  min-height: 480px;
+  border: 2px solid #ffffff18;
+  background: #0a0a14cc;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 60px #00ccff18, 0 0 120px #7700ff12;
+}
+
+/* ── Panel izquierdo: preview ──────────────────────────────── */
+.preview-panel {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, #0e1a30 0%, #07070f 100%);
+  border-right: 2px solid #ffffff12;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #00ccff22 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.preview-glow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 20px #00ccff88) drop-shadow(0 0 40px #00ccff44);
+}
+
+.preview-big {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+@keyframes idleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.preview-name {
+  font-size: 0.55rem;
+  color: #ffe066;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px #ffe06688;
+}
+
+.preview-badge {
+  font-size: 0.3rem;
+  color: #00ff88;
+  letter-spacing: 2px;
+  border: 1px solid #00ff8844;
+  padding: 0.3rem 0.6rem;
+  text-shadow: 0 0 8px #00ff8866;
+}
+
+/* ── Panel derecho: selección ──────────────────────────────── */
+.select-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 2rem 2rem;
+}
+
+.game-title {
+  text-align: center;
+
+  h1 {
+    font-size: 1.5rem;
+    color: #ffe066;
+    text-shadow: 0 0 20px #ffaa00, 0 0 40px #ff660088;
+    letter-spacing: 4px;
+    margin: 0 0 0.4rem 0;
+  }
+
+  .subtitle {
+    display: block;
+    font-size: 0.4rem;
+    color: #888;
+    letter-spacing: 4px;
+  }
+}
+
+/* ── Grid de personajes ────────────────────────────────────── */
+.character-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  width: 100px;
+  border: 2px solid #333;
+  background: #0d0d1a;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  image-rendering: pixelated;
+
+  img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: brightness(0.85);
+    transition: filter 0.15s, transform 0.15s;
+  }
+
+  span {
+    font-size: 0.28rem;
+    color: #888;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    border-color: #00ccff;
+    box-shadow: 0 0 14px #00ccff44;
+    transform: translateY(-3px);
+
+    img { filter: brightness(1.1); }
+    span { color: #ccc; }
+  }
+
+  &.selected {
+    border-color: #ffe066;
+    box-shadow: 0 0 20px #ffe06666, inset 0 0 20px #ffe06611;
+    background: #12110a;
+    transform: translateY(-3px);
+
+    img { filter: brightness(1.2) drop-shadow(0 0 6px #ffe066aa); }
+    span { color: #ffe066; }
+  }
+}
+
+/* ── Formulario ────────────────────────────────────────────── */
+.form-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+
+  input {
+    background: #050510;
+    border: 2px solid #ffffff22;
+    border-bottom: 2px solid #00ccff;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.65rem;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    outline: none;
+    width: 220px;
+    letter-spacing: 3px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder { color: #333; }
+
+    &:focus {
+      border-bottom-color: #ffe066;
+      box-shadow: 0 4px 12px #ffe06622;
+    }
+  }
+
+  .error {
+    font-size: 0.55rem;
+    color: #ff4444;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #ff444488;
+    text-align: center;
+  }
+}
+
+.btn-fight-wrapper {
+  width: fit-content;
+  align-self: center;
+}
+
+.btn-fight {
+  background: linear-gradient(135deg, #ffe066 0%, #ff9900 100%);
+  border: none;
+  color: #000;
+  font-family: inherit;
+  font-size: 0.6rem;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  letter-spacing: 2px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: filter 0.15s, transform 0.1s;
+  text-shadow: none;
+
+  &:hover {
+    filter: brightness(1.2);
+    transform: scale(1.04);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ── Lista de espera ───────────────────────────────────────── */
+.waiting-list {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .waiting-label {
+    font-size: 0.35rem;
+    color: #444;
+    letter-spacing: 3px;
+  }
+
+  .waiting-item {
+    font-size: 0.4rem;
+    color: #00ccff;
+    text-shadow: 0 0 8px #00ccff88;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+
+/* ── Pantalla VS (waiting) ─────────────────────────────────── */
+.versus-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 820px;
+  padding: 3rem 2rem;
+}
+
+.versus-title {
+  font-size: 0.55rem;
+  color: #888;
+  letter-spacing: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+.versus-row {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.versus-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 20px #00ccff88);
+    animation: idleFloat 2s ease-in-out infinite;
+  }
+
+  &.rival img { display: none; }
+}
+
+.silhouette {
+  width: 140px;
+  height: 140px;
+  background: #ffffff0a;
+  border: 2px dashed #333;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { border-color: #333; box-shadow: none; }
+  50%       { border-color: #555; box-shadow: 0 0 20px #ffffff08; }
+}
+
+.vs-badge {
+  font-size: 2.5rem;
+  color: #ff4466;
+  text-shadow: 0 0 30px #ff4466, 0 0 60px #ff446688;
+  letter-spacing: 4px;
+}
+
+.versus-playername {
+  font-size: 0.5rem;
+  color: #ffe066;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  &.blink { animation: blink 0.9s step-end infinite; color: #555; }
+}
+
+/* ── Pantalla FOUND ────────────────────────────────────────── */
+.found-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.found-text {
+  font-size: 1.2rem;
+  color: #00ff88;
+  text-shadow: 0 0 30px #00ff88, 0 0 60px #00ff8888;
+  animation: flash 0.3s ease-in-out 3;
+}
+
+.found-sub {
+  font-size: 0.45rem;
+  color: #555;
+  letter-spacing: 4px;
+}
+
+
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@include m.large {
+
+  .lobby-screen {
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .lobby-layout {
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* En mobile el preview va arriba, pequeño */
+  .preview-panel {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    border-right: none;
+    border-bottom: 2px solid #ffffff12;
+    background: linear-gradient(90deg, #0e1a30 0%, #07070f 100%);
+
+    &::before { display: none; }
+  }
+
+  .preview-big {
+    width: 90px;
+    height: 90px;
+  }
+
+  .preview-name {
+    font-size: 0.45rem;
+  }
+
+  .preview-badge {
+    font-size: 0.25rem;
+  }
+
+  .select-panel {
+    padding: 1.2rem 1rem;
+    gap: 1rem;
+  }
+
+  .game-title h1 {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .character-grid {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .character-card {
+    width: 80px;
+    padding: 0.4rem;
+
+    img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  .form-area input {
+    width: 100%;
+    max-width: 280px;
+    font-size: 0.55rem;
+  }
+
+  .btn-fight {
+    font-size: 0.5rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  /* Pantalla VS en mobile */
+  .versus-screen {
+    width: 100%;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .versus-row {
+    gap: 1.5rem;
+  }
+
+  .versus-player img,
+  .silhouette {
+    width: 90px;
+    height: 90px;
+  }
+
+  .vs-badge {
+    font-size: 1.5rem;
+  }
+
+  .found-text {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}

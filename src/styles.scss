@@ -1,0 +1,13 @@
+// ── Estilos globales de la aplicación Angular ────────────────────────────────
+// Orden de carga importante:
+//   1. variables → define tokens de color, fuentes y breakpoints (SCSS + :root CSS)
+//   2. mixins    → helpers reutilizables (crt-scanlines, neon-text, media queries)
+//   3. reset     → normaliza estilos del navegador (box-sizing, font-family global)
+//   4. common    → clases utilitarias compartidas (.blink-slow, @keyframes blink)
+//
+// Los estilos propios de cada página viven en su respectivo *.component.scss
+
+@use 'styles/variables';
+@use 'styles/mixins';
+@use 'styles/reset';
+@use 'styles/common';

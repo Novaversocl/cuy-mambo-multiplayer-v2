@@ -1,0 +1,235 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.arcade-hall {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+
+  // colores de fondo
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #ff00ff, #00ffff, #ff8800, #00ff00, #ff00aa, #0088ff, #ff00ff);
+    background-size: 100% 400%;
+    animation: colorFlow 6s linear infinite;
+    opacity: 0.6;
+    z-index: 0;
+  }
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/img/ui/Intro.png') center center / cover no-repeat;
+  opacity: 1;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.arcade-hall.glitching .bg-image {
+  filter: hue-rotate(90deg) saturate(4) contrast(1.5);
+  transform: skewX(3deg) translateX(6px);
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  @include m.crt-scanlines();
+  animation: scanMove 6s linear infinite;
+}
+
+.static-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.15) 0px, rgba(0,0,0,0.3) 1px,
+    rgba(255,255,255,0.1) 2px, rgba(0,0,0,0.2) 3px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 0px, transparent 1px, rgba(0,0,0,0.1) 2px
+  );
+  background-size: 3px 3px;
+
+  &.active {
+    opacity: 1;
+    animation: staticFlash 0.18s steps(4);
+  }
+}
+
+.tv-screen {
+  position: absolute;
+  z-index: 10;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+
+  @include m.tablet {
+    width: 40%;
+    gap: 1.5rem;
+    top: 46%;
+  }
+}
+
+.marquee {
+  font-family: v.$font-arcade;
+  font-size: 2.6rem;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
+  animation: flicker 4s infinite;
+}
+
+.insert-coin-btn {
+  color: #ffff00;
+  font-family: v.$font-arcade;
+  font-size: 1.85rem;
+  cursor: pointer;
+  animation: blink 1s step-end infinite;
+  text-shadow: 0 0 8px #ffff00;
+  text-align: center;
+
+  @include m.tablet {
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+}
+
+.winamp-wrapper {
+  position: absolute;
+  z-index: 10;
+  top: 8px;
+  right: 8px;
+
+  &::before {
+    content: '▶ ONLINE MUSIC';
+    display: block;
+    font-family: v.$font-arcade;
+    font-size: 0.6rem;
+    color: #00ffff;
+    text-align: right;
+    padding: 4px 6px;
+    letter-spacing: 1px;
+    animation: blink 2s step-end infinite;
+  }
+
+  app-yt-player {
+    display: block;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  &:hover app-yt-player {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @include m.tablet { display: none; }
+}
+
+.day-night-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+  background: #f5c518;
+  border: 2px solid #ff8800;
+  color: #000;
+  font-family: v.$font-arcade;
+  font-size: 0.6rem;
+  padding: 8px 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.6);
+  transition: all 0.3s;
+
+  &:hover { background: #ffd740; }
+
+  &.night-mode {
+    background: #1a006e;
+    border-color: #fff;
+    color: #fff;
+    text-shadow: 0 0 6px #00ffff;
+    box-shadow: 0 0 12px rgba(255,255,255,0.4);
+
+    &:hover { background: #2a0090; }
+  }
+}
+
+.night-overlay {
+  position: absolute;
+  width: 550px;
+  height: 350px;
+  top: 45%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2000px rgba(0, 0, 20, 0.75);
+  z-index: 9;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+
+  &.active { opacity: 1; }
+
+  @include m.tablet {
+    width: 68%;
+    height: 26%;
+    top: 46%;
+    left: 53%;
+  }
+}
+
+.flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+
+  &.active { animation: flash 0.5s ease-out; }
+}
+
+@keyframes colorFlow {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+
+@keyframes scanMove {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
+@keyframes staticFlash {
+  0%   { opacity: 1;   background-position: 0px 0px; }
+  33%  { opacity: 0.8; background-position: -5px 3px; }
+  66%  { opacity: 1;   background-position: 3px -2px; }
+  100% { opacity: 0; }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+}
+
+@keyframes flash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

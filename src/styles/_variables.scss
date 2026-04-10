@@ -1,0 +1,37 @@
+// ── SCSS variables (use in component SCSS via @use) ─────────────────────────
+
+// Colors
+$neon-green:  #39ff14;
+$neon-cyan:   #00ffff;
+$neon-yellow: #ffff00;
+$neon-gold:   #ffe066;
+$neon-amber:  #ffaa00;
+$neon-pink:   #ff00ff;
+$neon-red:    #ff4444;
+$neon-orange: #ff6600;
+$neon-blue:   #00ccff;
+$neon-teal:   #00ff88;
+$dark-bg:     #000000;
+$dark-bg-alt: #0a0a0a;
+
+// Font
+$font-arcade: 'Press Start 2P', monospace;
+
+// Breakpoints
+$bp-mobile: 600px;
+$bp-tablet: 768px;
+$bp-large:  860px;
+
+// ── CSS custom properties (available everywhere via var()) ───────────────────
+
+:root {
+  --neon-green:  #{$neon-green};
+  --neon-cyan:   #{$neon-cyan};
+  --neon-yellow: #{$neon-yellow};
+  --neon-pink:   #{$neon-pink};
+  --neon-red:    #{$neon-red};
+  --neon-orange: #{$neon-orange};
+  --dark-bg:     #{$dark-bg};
+  --dark-bg-alt: #{$dark-bg-alt};
+  --font-arcade: 'Press Start 2P', monospace;
+}

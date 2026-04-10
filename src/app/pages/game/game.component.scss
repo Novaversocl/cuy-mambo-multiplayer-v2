@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background: #050508;
+  background-image: radial-gradient(ellipse at 50% 40%, #0d0d22 0%, #050508 70%);
+}
+
+:host.loading {
+  visibility: hidden;
+}
+
+.game-curtain {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  visibility: visible;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  :host {
+    justify-content: flex-start;
+    padding-top: 12px;
+  }
+}

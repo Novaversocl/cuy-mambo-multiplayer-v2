@@ -1,0 +1,10 @@
+// Estilos del componente raíz AppComponent (<app-root>).
+// NO es global — Angular encapsula estos estilos solo a este elemento.
+// Su único propósito es que <app-root> ocupe toda la pantalla,
+// para que las páginas hijas puedan usar height: 100% o 100vh sin problemas.
+// Los estilos globales reales están en src/styles.scss.
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+}

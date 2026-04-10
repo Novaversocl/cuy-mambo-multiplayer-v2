@@ -1,0 +1,237 @@
+:host {
+  display: block;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.arcade-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.crt-lines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.arcade-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  z-index: 1;
+}
+
+.page-header {
+  text-align: center;
+
+  .player-label {
+    font-size: 0.65rem;
+    color: var(--neon-yellow);
+    letter-spacing: 6px;
+    margin-bottom: 0.8rem;
+  }
+
+  .page-title {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+    letter-spacing: 4px;
+  }
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 0, 255, 0.4);
+  padding: 1.5rem;
+  width: 100%;
+
+  .avatar-sprite {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 8px var(--neon-pink));
+  }
+
+  .profile-name {
+    font-size: 0.7rem;
+    color: var(--neon-yellow);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 8px var(--neon-yellow);
+  }
+
+  .profile-role {
+    font-size: 0.6rem;
+    color: var(--neon-cyan);
+    opacity: 0.8;
+  }
+
+  .profile-school {
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
+  }
+}
+
+.story-section,
+.tech-section,
+.highlights-section {
+  width: 100%;
+  border: 1px solid rgba(255, 0, 255, 0.2);
+  padding: 1.5rem;
+}
+
+.section-title {
+  font-size: 0.7rem;
+  color: var(--neon-cyan);
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.story-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  p {
+    font-size: 0.6rem;
+    color: var(--neon-green);
+    line-height: 2;
+    opacity: 0.9;
+  }
+}
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.tech-tag {
+  font-size: 0.55rem;
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 0, 255, 0.05);
+}
+
+.highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+
+  .hi-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .hi-text {
+    font-size: 0.58rem;
+    color: var(--neon-green);
+    line-height: 2;
+    opacity: 0.9;
+  }
+}
+
+.back-link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2rem;
+}
+
+.btn-back {
+  font-size: 0.6rem;
+  color: var(--neon-green);
+  border: 2px solid var(--neon-green);
+  padding: 0.8rem 1.5rem;
+  letter-spacing: 2px;
+  transition: all 0.1s;
+
+  &:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-green);
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    overflow: hidden;
+  }
+
+  .arcade-wrapper {
+    height: 100vh;
+    min-height: unset;
+    align-items: center;
+  }
+
+  .arcade-content {
+    height: 100%;
+    justify-content: space-between;
+    gap: 0;
+    padding: 1rem 1rem 0.6rem;
+  }
+
+  .page-header {
+    .player-label { margin-bottom: 0.3rem; }
+    .page-title { font-size: 1rem; }
+  }
+
+  .profile-card {
+    padding: 0.6rem 1rem;
+    gap: 1rem;
+
+    .avatar-sprite { width: 44px; height: 44px; }
+    .profile-name { font-size: 0.6rem; margin-bottom: 0.2rem; }
+    .profile-role { font-size: 0.4rem; }
+  }
+
+  .story-section,
+  .tech-section {
+    padding: 0.6rem 1rem;
+  }
+
+  .section-title { margin-bottom: 0.4rem; }
+
+  .story-text {
+    gap: 0.4rem;
+    p { font-size: 0.42rem; line-height: 1.6; }
+  }
+
+  .tech-grid { gap: 0.4rem; }
+
+  .tech-tag { font-size: 0.38rem; padding: 0.3rem 0.6rem; }
+
+  .highlights-section { padding: 0.6rem 1rem; }
+  .highlight-item .hi-text { font-size: 0.38rem; }
+
+  .back-link { padding: 0.4rem 0; }
+}

@@ -1,0 +1,89 @@
+<div class="arcade-wrapper">
+  <div class="crt-lines"></div>
+
+  <div class="arcade-content">
+
+    <header class="page-header">
+      <p class="player-label blink-slow">PLAYER ONE</p>
+      <h1 class="page-title">ACERCA DE</h1>
+    </header>
+
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <img src="assets/img/personajes/cuy-mambo/quieto.png" alt="Developer" class="avatar-sprite">
+      </div>
+      <div class="profile-info">
+        <p class="profile-name">JUAN ESTRADA</p>
+        <p class="profile-role">FULL STACK DEV</p>
+        <p class="profile-school">INACAP — ING. INFORMÁTICA</p>
+      </div>
+    </div>
+
+    <section class="story-section">
+      <h2 class="section-title">// HISTORIA</h2>
+      <div class="story-text">
+        <p>
+          Siempre me pregunté cómo funcionan los videojuegos por dentro.
+          No el resultado final, sino la física, la detección de colisiones,
+          el game loop. Quería construirlo yo mismo para entenderlo de verdad.
+        </p>
+        <p>
+          CUY MAMBO nació de esa curiosidad: un motor de juego
+          construido desde cero con JavaScript puro, sin librerías ni motores externos.
+          Solo el navegador, la lógica y las ganas de aprender.
+        </p>
+        <p>
+          Una vez el motor funcionó, lo envolví en Angular para
+          agregar multijugador en tiempo real con Socket.IO —
+          un servidor Node.js coordina las partidas, sincroniza el daño
+          y gestiona los lobbies. Dos jugadores, una pantalla, un ganador.
+        </p>
+      </div>
+    </section>
+
+    <section class="tech-section">
+      <h2 class="section-title">// STACK</h2>
+      <div class="tech-grid">
+        <span class="tech-tag">VANILLA JS</span>
+        <span class="tech-tag">ANGULAR 21</span>
+        <span class="tech-tag">TYPESCRIPT</span>
+        <span class="tech-tag">SCSS</span>
+        <span class="tech-tag">NODE.JS</span>
+        <span class="tech-tag">SOCKET.IO</span>
+        <span class="tech-tag">WEB AUDIO API</span>
+        <span class="tech-tag">GAMEPAD API</span>
+      </div>
+    </section>
+
+    <section class="highlights-section">
+      <h2 class="section-title">// CARACTERÍSTICAS</h2>
+      <div class="highlights-list">
+        <div class="highlight-item">
+          <span class="hi-icon">⚙️</span>
+          <span class="hi-text">Motor de física propio — gravedad, salto y colisiones sin librerías</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🌐</span>
+          <span class="hi-text">Multijugador en tiempo real con arquitectura servidor-autoritativa</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🎮</span>
+          <span class="hi-text">Soporte para teclado, gamepad y controles táctiles</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🔫</span>
+          <span class="hi-text">5 armas, power-ups, invocaciones y zona de fuego dinámica</span>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">📱</span>
+          <span class="hi-text">Diseño responsive adaptado a móvil con escala automática</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="back-link">
+      <a routerLink="/home" class="btn-back">◀ VOLVER</a>
+    </div>
+
+  </div>
+</div>

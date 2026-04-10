@@ -1,0 +1,93 @@
+<div class="game-curtain" [class.hidden]="isReady()"></div>
+
+<div id="top-brand">
+  <span>NOVAVERSO</span><span>® GAME</span>
+</div>
+
+<div id="monitor-bezel">
+  <div id="monitor-screen">
+
+    <div id="hud">
+
+      <!-- Jugador local -->
+      <div class="hud-side hud-side-left">
+        <div class="hud-bar-col">
+          <span class="hud-name" id="match-p1">P1</span>
+          <div class="hp-bar-wrap">
+            <div class="hp-bar hp-bar-local" id="hp-bar-local"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Centro: VS + marcador de rondas -->
+      <div class="hud-center">
+        <span class="match-vs">VS</span>
+        <div class="round-score-wrap">
+          <span id="round-score-p1">☆☆</span>
+          <span id="round-score-p2">☆☆</span>
+        </div>
+      </div>
+
+      <!-- Jugador rival -->
+      <div class="hud-side hud-side-right">
+        <div class="hud-bar-col">
+          <span class="hud-name" id="match-p2">P2</span>
+          <div class="hp-bar-wrap">
+            <div class="hp-bar hp-bar-remote" id="hp-bar-remote"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="game-container">
+      <div id="cube"><span id="local-player-name" class="player-label"></span></div>
+      <div id="remote-player" class="hidden"><span id="remote-player-name" class="player-label opponent-label"></span></div>
+
+      <!-- Fosos del Vacío (Tapan el suelo del GIF en las esquinas) -->
+      <div class="void-pit void-left"></div>
+      <div class="void-pit void-right"></div>
+
+      <!-- Plataformas nivel 1 (bajas) - Restauradas sobre suelo seguro -->
+      <div class="platform" style="left:100px; top:460px; width:140px;"></div>
+      <div class="platform" style="left:560px; top:460px; width:140px;"></div>
+
+      <!-- Plataformas nivel 2 (medio) — balancín -->
+      <div class="platform" id="platform-balance" style="left:275px; top:365px; width:250px; transform-origin: center top;"></div>
+
+      <!-- Plataformas nivel 3 (altas) -->
+      <div class="platform" style="left:80px;  top:260px; width:150px;"></div>
+      <div class="platform" style="left:570px; top:260px; width:150px;"></div>
+
+      <!-- Plataforma nivel 4 (centro arriba) -->
+      <div class="platform" style="left:325px; top:155px; width:150px;"></div>
+
+      <div id="floor"></div>
+      <div id="wave-announcement"></div>
+
+      <div id="crt-overlay"></div>
+
+      <div id="screen-gameover" class="overlay hidden">
+        <h1 id="gameover-title">GAME OVER</h1>
+        <button id="btn-lobby">VOLVER AL LOBBY</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button id="btn-touch-start" aria-label="Start">START</button>
+
+<div id="touch-controls">
+  <div id="tc-left">
+    <button id="btn-touch-left" aria-label="Izquierda">◀</button>
+    <button id="btn-touch-right" aria-label="Derecha">▶</button>
+  </div>
+  <div id="tc-brand"></div>
+  <div id="tc-right">
+    <button id="btn-touch-jump" aria-label="Saltar">B</button>
+    <button id="btn-touch-shoot" aria-label="Disparar">Y</button>
+  </div>
+</div>
+
+<footer>CUY MAMBO &copy; NOVAVERSO</footer>
