@@ -2,6 +2,10 @@
 
 Juego de pelea 2D multijugador en tiempo real. Dos jugadores se conectan desde distintos dispositivos y se enfrentan en un mapa con plataformas, armas y zonas de peligro.
 
+![cuymambo](https://github.com/user-attachments/assets/fbb6edac-5ed7-4edb-bc46-910665270a19)
+
+
+
 Construido con **Angular 21** como frontend y un motor de juego en **JavaScript vanilla** que corre en el navegador. El multijugador usa **Socket.io** con un servidor Node.js separado.
 
 ---
