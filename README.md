@@ -229,3 +229,20 @@ pnpm run start:lan  # Expuesto en red local (0.0.0.0)
 pnpm run build      # Build de producción en dist/
 pnpm test           # Pruebas unitarias con Vitest
 ```
+
+---
+
+## Licencia
+
+© 2026 novaverso. Todos los derechos reservados.
+
+Este repositorio está disponible **solo para fines de evaluación técnica, académica o reclutamiento profesional**.
+
+- ✅ Permitido: ver el código, clonarlo localmente, ejecutarlo con fines de estudio
+- ❌ Prohibido: uso comercial, redistribución, publicación bajo otro nombre, obras derivadas con fines de lucro
+
+Los personajes, sprites, música y videos son propiedad intelectual original y no pueden usarse fuera de este repositorio.
+
+Para consultas comerciales: portafolioformulario2024@gmail.com
+
+Ver [LICENSE](LICENSE) para más detalles.
