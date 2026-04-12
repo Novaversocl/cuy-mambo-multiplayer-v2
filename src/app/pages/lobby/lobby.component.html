@@ -46,11 +46,18 @@
             <div
               class="character-card"
               [class.selected]="selectedCharacter().id === char.id"
-              (mouseenter)="hoverCharacter()"
-              (click)="selectCharacter(char)"
+              [class.locked]="char.locked"
+              (mouseenter)="!char.locked && hoverCharacter()"
+              (click)="!char.locked && selectCharacter(char)"
             >
               <img [src]="char.preview" [alt]="char.name" />
               <span>{{ char.name }}</span>
+              @if (char.locked) {
+                <div class="locked-overlay">
+                  <span class="lock-icon">🔒</span>
+                  <span class="lock-text">PRÓXIMAMENTE</span>
+                </div>
+              }
             </div>
           }
         </div>

@@ -1,3 +1,9 @@
+const DANCE_GIFS = {
+  'mago':          'assets/img/bailes/mago/baile_mago_1.gif',
+  'cuy-mambo':     'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
+  'cuy-mambolina': 'assets/img/bailes/cuy-mambolina/baile_cuy-mambolina_01.gif',
+};
+
 class UIManager {
   constructor(game) {
     this.game = game;
@@ -14,8 +20,6 @@ class UIManager {
   updateLivesDisplay() {
     const hp  = Math.max(0, this.game.lives);
     const pct = (hp / this.game.maxLives) * 100;
-    const col = this._hpColor(hp);
-
     const bar = document.getElementById('hp-bar-local');
     if (bar) bar.style.width = pct + '%';
   }
@@ -23,14 +27,8 @@ class UIManager {
   updateRemoteHpDisplay(hp) {
     const v   = Math.max(0, hp);
     const pct = (v / this.game.maxLives) * 100;
-    const col = this._hpColor(v);
-
     const bar = document.getElementById('hp-bar-remote');
     if (bar) bar.style.width = pct + '%';
-  }
-
-  _hpColor(_hp) {
-    return '#44ff44';
   }
 
   // ── Actualizar nombre del rival en el HUD ───────────────────────────────────
@@ -236,11 +234,7 @@ class UIManager {
     el.style.backgroundPosition = 'center bottom';
     el.style.backgroundRepeat  = 'no-repeat';
 
-    const danceGifs = {
-      'mago':      'assets/img/bailes/mago/baile_mago_1.gif',
-      'cuy-mambo': 'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
-    };
-    const gif = danceGifs[charId];
+    const gif = DANCE_GIFS[charId];
     if (gif) {
       el.style.backgroundImage = `url('${gif}')`;
     } else {
@@ -268,11 +262,7 @@ class UIManager {
     remoteEl.style.backgroundPosition = 'center bottom';
     remoteEl.style.backgroundRepeat  = 'no-repeat';
 
-    const danceGifs = {
-      'mago':      'assets/img/bailes/mago/baile_mago_1.gif',
-      'cuy-mambo': 'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
-    };
-    const gif = danceGifs[charId];
+    const gif = DANCE_GIFS[charId];
     if (gif) {
       remoteEl.style.backgroundImage = `url('${gif}')`;
     } else {

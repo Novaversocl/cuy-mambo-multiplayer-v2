@@ -279,6 +279,43 @@
   }
 }
 
+/* ── Personaje bloqueado ───────────────────────────────────── */
+.character-card.locked {
+  cursor: not-allowed;
+  opacity: 0.6;
+  position: relative;
+
+  &:hover {
+    border-color: #333;
+    box-shadow: none;
+    transform: none;
+
+    img { filter: brightness(0.85); }
+    span { color: #888; }
+  }
+}
+
+.locked-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  background: #00000088;
+}
+
+.lock-icon {
+  font-size: 1.2rem;
+}
+
+.lock-text {
+  font-size: 0.25rem;
+  color: #aaa;
+  letter-spacing: 2px;
+}
+
 /* ── Lista de espera ───────────────────────────────────────── */
 .waiting-list {
   display: flex;

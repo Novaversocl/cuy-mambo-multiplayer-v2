@@ -10,4 +10,6 @@ export interface ICharacter {
   preview: string;
   /** Rutas a los sprites de animación */
   sprites: ICharacterSprites;
+  /** Si es true el personaje se muestra pero no es seleccionable */
+  locked?: boolean;
 }

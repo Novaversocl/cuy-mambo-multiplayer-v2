@@ -11,8 +11,9 @@ class AudioManager {
     // Audios críticos — se descargan en background al iniciar
     const audioPreloads = [
       ['door-open',          'assets/Musica/door-open.mp3'],
-      ['end-win-cuy-mambo',  'assets/Musica/win-cuy-mambo.mp3'],
-      ['end-win-mago',    'assets/Musica/win-mago.mp3'],
+      ['end-win-cuy-mambo',     'assets/Musica/win-cuy-mambo.mp3'],
+      ['end-win-mago',          'assets/Musica/win-mago.mp3'],
+      ['end-win-cuy-mambolina', 'assets/Musica/mambo_mambo.mp3'],
       ['end-lose',           'assets/Musica/lose.mp3'],
       ['round-1',            'assets/Musica/round-1-announce.mp3'],
       ['round-2',            'assets/Musica/round-2-announce.mp3'],
@@ -309,8 +310,9 @@ class AudioManager {
     let src;
     if (result === 'win') {
       const winSongs = {
-        'cuy-mambo': 'assets/Musica/win-cuy-mambo.mp3',
-        'mago':      'assets/Musica/win-mago.mp3',
+        'cuy-mambo':     'assets/Musica/win-cuy-mambo.mp3',
+        'mago':          'assets/Musica/win-mago.mp3',
+        'cuy-mambolina': 'assets/Musica/mambo_mambo.mp3',
       };
       src = winSongs[charId] || 'assets/Musica/win-mago.mp3';
     } else {

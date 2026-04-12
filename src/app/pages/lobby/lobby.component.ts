@@ -89,13 +89,15 @@ function playFound() {
 }
 
 const CHARACTER_GIFS: Record<string, string> = {
-  'cuy-mambo': 'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
-  'mago':      'assets/img/bailes/mago/baile_mago_1.gif',
+  'cuy-mambo':    'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
+  'mago':         'assets/img/bailes/mago/baile_mago_1.gif',
+  'cuy-mambolina':'assets/img/bailes/cuy-mambolina/baile_cuy-mambolina_01.gif',
 };
 
 const CHARACTER_MUSIC: Record<string, string> = {
-  'cuy-mambo': 'assets/Musica/win-cuy-mambo.mp3',
-  'mago':      'assets/Musica/win-mago.mp3',
+  'cuy-mambo':    'assets/Musica/win-cuy-mambo.mp3',
+  'mago':         'assets/Musica/win-mago.mp3',
+  'cuy-mambolina':'assets/Musica/mambo_mambo.mp3',
 };
 
 const CHARACTERS: ICharacter[] = [
@@ -118,6 +120,17 @@ const CHARACTERS: ICharacter[] = [
       walkLeft:  ['assets/img/personajes/mago/camina-izquierda-1.png', 'assets/img/personajes/mago/camina-izquierda-2.png'],
       jump:      'assets/img/personajes/mago/salto.png'
     }
+  },
+  {
+    id: 'cuy-mambolina',
+    name: 'Cuy Mambolina',
+    preview: 'assets/img/personajes/cuy-mambolina/camina-derecha-1.png',
+    sprites: {
+      walkRight: ['assets/img/personajes/cuy-mambolina/camina-derecha-1.png', 'assets/img/personajes/cuy-mambolina/camina-derecha-2.png'],
+      walkLeft:  ['assets/img/personajes/cuy-mambolina/camina-izquierda-1.png', 'assets/img/personajes/cuy-mambolina/camina-izquierda-2.png'],
+      jump:      'assets/img/personajes/cuy-mambolina/salto.png'
+    },
+    locked: false
   }
 ];
 
