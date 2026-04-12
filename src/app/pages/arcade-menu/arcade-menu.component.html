@@ -39,7 +39,7 @@
     <div class="lb-modal" (click)="$event.stopPropagation()">
       <h2 class="lb-title">🏆 MEJORES JUGADORES</h2>
       @if (isLoading()) {
-        <div class="lb-spinner"></div>
+        <app-spinner size="sm" />
       } @else if (leaderboard().length === 0) {
         <p class="lb-empty">AÚN NO HAY CAMPEONES</p>
       } @else {

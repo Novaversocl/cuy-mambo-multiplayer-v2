@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, PLATFORM_ID, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { SocketService } from '../../services/socket.service';
+import { SocketService } from '../../shared/services/socket.service';
 
 /**
  * GameComponent — pantalla principal del juego.

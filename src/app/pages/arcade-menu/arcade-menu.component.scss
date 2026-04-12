@@ -154,19 +154,6 @@
 
 .lb-top .lb-rank { color: #ffdd00; }
 
-.lb-spinner {
-  width: 32px;
-  height: 32px;
-  margin: 1.5rem auto;
-  border: 3px solid #222;
-  border-top-color: var(--neon-cyan, #00eeff);
-  border-radius: 50%;
-  animation: lb-spin 0.7s linear infinite;
-}
-
-@keyframes lb-spin {
-  to { transform: rotate(360deg); }
-}
 
 .lb-close {
   font-family: 'Press Start 2P', monospace;

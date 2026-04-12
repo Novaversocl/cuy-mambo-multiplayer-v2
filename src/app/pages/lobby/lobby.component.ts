@@ -1,8 +1,10 @@
 import { Component, NgZone, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SocketService, Character } from '../../services/socket.service';
+import { SocketService } from '../../shared/services/socket.service';
+import { ICharacter } from '../../shared/interfaces/character/ICharacter';
 import { ArcadeButtonComponent } from '../../shared/components/arcade-button/arcade-button.component';
+import { Spinner } from '../../shared/components/spinner/spinner';
 import type { Socket } from 'socket.io-client';
 
 /**
@@ -26,7 +28,7 @@ import type { Socket } from 'socket.io-client';
  */
 
 /** Posibles pantallas dentro del lobby */
-type LobbyState = 'form' | 'waiting' | 'found';
+type LobbyState = 'connecting' | 'form' | 'waiting' | 'found' | 'server-error';
 
 // Función auxiliar para crear un AudioContext (con fallback webkit para Safari)
 const ctx = () => new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -96,7 +98,7 @@ const CHARACTER_MUSIC: Record<string, string> = {
   'mago':      'assets/Musica/win-mago.mp3',
 };
 
-const CHARACTERS: Character[] = [
+const CHARACTERS: ICharacter[] = [
   {
     id: 'cuy-mambo',
     name: 'Cuy Mambo',
@@ -121,7 +123,7 @@ const CHARACTERS: Character[] = [
 
 @Component({
   selector: 'app-lobby',
-  imports: [FormsModule, ArcadeButtonComponent],
+  imports: [FormsModule, ArcadeButtonComponent, Spinner],
   templateUrl: './lobby.component.html',
   styleUrl: './lobby.component.scss'
 })
@@ -130,11 +132,11 @@ export class LobbyComponent implements OnInit, OnDestroy {
   private socketSvc = inject(SocketService);
   private ngZone    = inject(NgZone);
 
-  state             = signal<LobbyState>('form');
+  state             = signal<LobbyState>('connecting');
   playerName        = signal('');
   errorMsg          = signal('');
   waitingPlayers    = signal<string[]>([]);
-  selectedCharacter = signal<Character>(CHARACTERS[0]);
+  selectedCharacter = signal<ICharacter>(CHARACTERS[0]);
 
   readonly characters    = CHARACTERS;
   readonly characterGifs = CHARACTER_GIFS;
@@ -142,12 +144,28 @@ export class LobbyComponent implements OnInit, OnDestroy {
   private socket: Socket | null = null;
   private joining = false;
   private bgMusic: HTMLAudioElement | null = null;
+  private connectTimeout: ReturnType<typeof setTimeout> | null = null;
   musicMuted = signal(false);
 
   ngOnInit() {
-    this._playCharacterMusic(this.selectedCharacter().id);
+    this._playICharacterMusic(this.selectedCharacter().id);
     this.socketSvc.disconnect();
     this.socket = this.socketSvc.connect();
+
+    this.connectTimeout = setTimeout(() => {
+      if (this.state() === 'connecting') {
+        this.ngZone.run(() => this.state.set('server-error'));
+      }
+    }, 60000);
+
+    this.socket.on('connect', () => {
+      this.ngZone.run(() => {
+        if (this.state() === 'connecting') {
+          if (this.connectTimeout) clearTimeout(this.connectTimeout);
+          this.state.set('form');
+        }
+      });
+    });
 
     this.socket.on('update-lobby', ({ waiting }: { waiting: string[] }) => {
       this.ngZone.run(() => this.waitingPlayers.set(waiting));
@@ -187,11 +205,11 @@ hoverCharacter() {
     playHover();
   }
 
-  selectCharacter(character: Character) {
+  selectCharacter(character: ICharacter) {
     if (this.selectedCharacter().id === character.id) return;
     playSelect();
     this.selectedCharacter.set(character);
-    this._playCharacterMusic(character.id);
+    this._playICharacterMusic(character.id);
   }
 
   toggleMusic() {
@@ -200,7 +218,7 @@ hoverCharacter() {
     if (this.bgMusic) this.bgMusic.muted = muted;
   }
 
-  private _playCharacterMusic(charId: string) {
+  private _playICharacterMusic(charId: string) {
     if (this.bgMusic) {
       this.bgMusic.pause();
       this.bgMusic.currentTime = 0;
@@ -247,6 +265,7 @@ hoverCharacter() {
 
   ngOnDestroy() {
     this._stopMusic();
+    if (this.connectTimeout) clearTimeout(this.connectTimeout);
     if (this.socket) {
       this.socket.off('connect');
       this.socket.off('lobby-waiting');

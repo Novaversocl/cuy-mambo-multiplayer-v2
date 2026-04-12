@@ -4,6 +4,20 @@
     {{ musicMuted() ? '🔇' : '🔊' }}
   </button>
 
+  <!-- ESTADO: CONNECTING -->
+  @if (state() === 'connecting') {
+    <div class="connecting-screen">
+      <app-spinner />
+    </div>
+  }
+
+  <!-- ESTADO: SERVER ERROR -->
+  @if (state() === 'server-error') {
+    <div class="connecting-screen">
+      <p class="server-error-msg">No se pudo conectar al servidor.<br>Recarga la página e intenta nuevamente.</p>
+    </div>
+  }
+
   <!-- ESTADO: FORM -->
   @if (state() === 'form') {
     <div class="lobby-layout">

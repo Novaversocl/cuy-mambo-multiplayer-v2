@@ -401,6 +401,25 @@
   50%       { opacity: 0.2; }
 }
 
+/* ── Connecting / Server Error ─────────────────────────────── */
+.connecting-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 100vh;
+}
+
+.server-error-msg {
+  font-size: 0.45rem;
+  color: #ff4444;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 2;
+  text-shadow: 0 0 10px #ff444488;
+}
+
 /* ── Mobile ────────────────────────────────────────────────── */
 @include m.large {
 

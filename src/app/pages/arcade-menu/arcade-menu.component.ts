@@ -2,7 +2,9 @@ import { Component, HostListener, inject, OnInit, PLATFORM_ID, signal } from '@a
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ArcadeButtonComponent } from '../../shared/components/arcade-button/arcade-button.component';
-import { LeaderboardService, LeaderboardEntry } from '../../shared/services/leaderboard.service';
+import { Spinner } from '../../shared/components/spinner/spinner';
+import { LeaderboardService } from '../../shared/services/leaderboard.service';
+import { ILeaderboardEntry } from '../../shared/interfaces/leaderboard/ILeaderboardEntry';
 
 /**
  * ArcadeMenuComponent — menú principal estilo arcade.
@@ -15,7 +17,7 @@ import { LeaderboardService, LeaderboardEntry } from '../../shared/services/lead
  */
 @Component({
   selector: 'app-arcade-menu',
-  imports: [ArcadeButtonComponent],
+  imports: [ArcadeButtonComponent, Spinner],
   templateUrl: './arcade-menu.component.html',
   styleUrl: './arcade-menu.component.scss'
 })
@@ -25,7 +27,7 @@ export class ArcadeMenuComponent implements OnInit {
   private lbService  = inject(LeaderboardService);
 
   showLeaderboard = signal(false);
-  leaderboard     = signal<LeaderboardEntry[]>([]);
+  leaderboard     = signal<ILeaderboardEntry[]>([]);
   isLoading       = signal(false);
 
   openLeaderboard() {
