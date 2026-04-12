@@ -92,13 +92,22 @@ src/
 │   │   ├── game/          # Componente puente Angular ↔ motor JS
 │   │   ├── controls/      # Guía de controles
 │   │   └── about/         # Créditos
-│   ├── services/
-│   │   ├── socket.service.ts       # Singleton Socket.io (persiste entre lobby y juego)
-│   │   └── leaderboard.service.ts  # Consulta top 10 al servidor via @env/environment
 │   └── shared/
 │       ├── components/
 │       │   ├── arcade-button/ # Botón reutilizable del menú
+│       │   ├── spinner/       # Spinner de carga reutilizable (size: sm | md)
 │       │   └── yt-player/     # Reproductor de YouTube embebido
+│       ├── interfaces/
+│       │   ├── character/
+│       │   │   ├── ICharacter.ts        # Datos completos de un personaje
+│       │   │   └── ICharacterSprites.ts # Rutas a los sprites de animación
+│       │   ├── game/
+│       │   │   └── IGameStartPayload.ts # Payload del servidor al iniciar partida
+│       │   └── leaderboard/
+│       │       └── ILeaderboardEntry.ts # Entrada del ranking de jugadores
+│       ├── services/
+│       │   ├── socket.service.ts       # Singleton Socket.io (persiste entre lobby y juego)
+│       │   └── leaderboard.service.ts  # Consulta top 10 al servidor via @env/environment
 │       └── pipes/
 │           └── safe.pipe.ts   # Bypass del sanitizador para URLs de iframes
 ├── environments/
