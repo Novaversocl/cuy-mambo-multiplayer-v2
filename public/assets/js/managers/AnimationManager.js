@@ -4,7 +4,7 @@ class AnimationManager {
   constructor(sprites = null) {
     this.activeIntervals = new Map();
     this._walkFrame = { right: 0, left: 0 };
-    this.sprites = sprites || GAME_CONFIG.images.player;
+    this.sprites = sprites;
   }
 
   setSprites(sprites) {
