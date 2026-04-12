@@ -193,7 +193,7 @@ export class ShootingSystem {
       const r   = player.getCSSRect();
       const dir = player.currentDirection;
       // Un poco más abajo del centro
-      const beamTop = r.top + r.height * 0.58;
+      const beamTop = r.top + r.height * 0.53;
       beam.style.top = beamTop + 'px';
       if (dir === 'right') {
         beam.style.left  = r.right + 'px';

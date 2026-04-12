@@ -46,12 +46,12 @@ const GAME_CONFIG = {
     maxSpeedX: 6,
     accelerationX: 0.8
   },
-  
+
   dimensions: {
     cubeSize: 75,
     floorHeight: 10
   },
-  
+
   images: {
     player: {
       walkRight: ['assets/img/personajes/cuy-mambo/camina-derecha-1.png', 'assets/img/personajes/cuy-mambo/camina-derecha-2.png'],
@@ -59,12 +59,12 @@ const GAME_CONFIG = {
       jump: 'assets/img/personajes/cuy-mambo/salto.png'
     },
   },
-  
+
   sounds: {
-    background: 'assets/Musica/battle-theme-2.mp3',
+    background: 'assets/Musica/battle-theme-1.mp3',
     jump:       'assets/Musica/jump.mp3',
   },
-  
+
   keys: {
     LEFT: 37,
 
@@ -72,14 +72,14 @@ const GAME_CONFIG = {
     SPACE: 32,
     ENTER: 13
   },
-  
+
   timing: {
     animationSpeed: 100,
     npcSpeed: 850,
     backgroundMusicDelay: 2000,
     gameTime: 100
   },
-  
+
   colors: {
     transparent: 'transparent'
   }

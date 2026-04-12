@@ -300,6 +300,20 @@ class UIManager {
         this.gameoverTitle.textContent = 'RIVAL SE FUE';
         this.gameoverTitle.style.color = '#ff8800';
       }
+
+      const retryBtn = document.getElementById('btn-retry');
+      if (retryBtn) {
+        retryBtn.onclick = () => {
+          if (this.game.networkManager) this.game.networkManager.emitRematch();
+        };
+      }
+
+      const lobbyBtn = document.getElementById('btn-lobby');
+      if (lobbyBtn) {
+        lobbyBtn.onclick = () => {
+          if (this.game.networkManager) this.game.networkManager.returnToLobby();
+        };
+      }
     }, 1500);
   }
 }
