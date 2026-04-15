@@ -25,6 +25,12 @@ const GAME_CONFIG = {
     floorHeight: 10
   },
 
+  damage: {
+    default:     1,
+    weapon:     20,
+    void:      100,
+  },
+
   sounds: {
     background: 'assets/Musica/battle-theme-1.mp3',
     jump:       'assets/Musica/jump.mp3',

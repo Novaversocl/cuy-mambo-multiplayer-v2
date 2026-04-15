@@ -23,14 +23,15 @@
 
 import { Projectile } from '../entities/weapons/Projectile.js';
 import { Mine }       from '../entities/weapons/Mine.js';
+import { WEAPON_COOLDOWNS } from '../utils/WeaponsRegistry.js';
 
 const SHOTGUN_SPREAD = [-3.5, -1.5, 0, 1.5, 3.5];
 
 const SHOOT_COOLDOWNS = {
-  default: { 0: 150, 1: 400, 2: 600 },
-  food:        160,
-  flamethrower: 280,
-  shotgun:     500,
+  default:      { 0: 150, 1: 400, 2: 600 },
+  food:         WEAPON_COOLDOWNS.food,
+  flamethrower: WEAPON_COOLDOWNS.flamethrower,
+  shotgun:      WEAPON_COOLDOWNS.shotgun,
 };
 
 export class ShootingSystem {

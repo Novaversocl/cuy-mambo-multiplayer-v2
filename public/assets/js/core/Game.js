@@ -36,7 +36,7 @@ import { InputManager } from '../managers/InputManager.js';
 import { CollisionManager } from '../managers/CollisionManager.js';
 import { UIManager } from '../managers/UIManager.js';
 import { ShootingSystem } from '../systems/ShootingSystem.js';
-import { PickupSystem }   from '../systems/PickupSystem.js';
+import { PickupSystem }   from '../systems/CapsuleSystem.js';
 import { RoundSystem }    from '../systems/RoundSystem.js';
 
 const MAX_LIVES = 100;
@@ -118,6 +118,7 @@ class Game {
     this.isGameOver = false;
 
     this._setSide(side);
+    this._applyStage();
     this.pickupSystem.init();
 
     this.audioManager.playBackgroundMusic();
@@ -181,7 +182,6 @@ class Game {
     this.pickupSystem.checkDoors();
     this.pickupSystem.checkMines();
     this.pickupSystem.updateSummons();
-    this.pickupSystem.checkFireZones();
 
     if (this.networkManager) {
       this.networkManager.emitMove(this.player);
@@ -209,7 +209,7 @@ class Game {
       this.uiManager.showHitSpark(this.cubeElement);
     }
 
-    const damage = weaponType === 'void' ? 100 : (weaponType === 'default' ? 1 : 20);
+    const damage = GAME_CONFIG.damage[weaponType] ?? GAME_CONFIG.damage.weapon;
 
     if (this.networkManager) {
       this.networkManager.emitHit(damage, sourceX);
@@ -239,6 +239,12 @@ class Game {
 
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
+
+  _applyStage() {
+    const stage = window.__cuyMamboStage;
+    const bg = stage?.background || 'assets/img/ui/Fondo.gif';
+    this.gameContainer.style.backgroundImage = `url('${bg}')`;
+  }
 
   _setSide(side) {
     const containerW = this.gameContainer.offsetWidth;

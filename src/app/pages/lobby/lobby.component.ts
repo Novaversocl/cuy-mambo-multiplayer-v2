@@ -5,6 +5,9 @@ import { SocketService } from '../../shared/services/socket.service';
 import { ICharacter } from '../../shared/interfaces/character/ICharacter';
 import { ArcadeButtonComponent } from '../../shared/components/arcade-button/arcade-button.component';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { CHARACTERS_CONFIG } from '../../shared/config/characters.config';
+import { STAGES_CONFIG } from '../../shared/config/stages.config';
+import type { IStage } from '../../shared/config/stages.config';
 import type { Socket } from 'socket.io-client';
 
 /**
@@ -88,51 +91,15 @@ function playFound() {
   });
 }
 
-const CHARACTER_GIFS: Record<string, string> = {
-  'cuy-mambo':    'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
-  'mago':         'assets/img/bailes/mago/baile_mago_1.gif',
-  'cuy-mambolina':'assets/img/bailes/cuy-mambolina/baile_cuy-mambolina_01.gif',
-};
+const CHARACTER_GIFS: Record<string, string> = Object.fromEntries(
+  CHARACTERS_CONFIG.map(c => [c.id, c.gif])
+);
 
-const CHARACTER_MUSIC: Record<string, string> = {
-  'cuy-mambo':    'assets/Musica/win-cuy-mambo.mp3',
-  'mago':         'assets/Musica/win-mago.mp3',
-  'cuy-mambolina':'assets/Musica/mambo_mambo.mp3',
-};
+const CHARACTER_MUSIC: Record<string, string> = Object.fromEntries(
+  CHARACTERS_CONFIG.map(c => [c.id, c.music])
+);
 
-const CHARACTERS: ICharacter[] = [
-  {
-    id: 'cuy-mambo',
-    name: 'Cuy Mambo',
-    preview: 'assets/img/personajes/cuy-mambo/quieto.png',
-    sprites: {
-      walkRight: ['assets/img/personajes/cuy-mambo/camina-derecha-1.png', 'assets/img/personajes/cuy-mambo/camina-derecha-2.png'],
-      walkLeft:  ['assets/img/personajes/cuy-mambo/camina-izquierda-1.png', 'assets/img/personajes/cuy-mambo/camina-izquierda-2.png'],
-      jump:      'assets/img/personajes/cuy-mambo/salto.png'
-    }
-  },
-  {
-    id: 'mago',
-    name: 'Cuy Mago',
-    preview: 'assets/img/personajes/mago/camina-derecha-1.png',
-    sprites: {
-      walkRight: ['assets/img/personajes/mago/camina-derecha-1.png', 'assets/img/personajes/mago/camina-derecha-2.png'],
-      walkLeft:  ['assets/img/personajes/mago/camina-izquierda-1.png', 'assets/img/personajes/mago/camina-izquierda-2.png'],
-      jump:      'assets/img/personajes/mago/salto.png'
-    }
-  },
-  {
-    id: 'cuy-mambolina',
-    name: 'Cuy Mambolina',
-    preview: 'assets/img/personajes/cuy-mambolina/camina-derecha-1.png',
-    sprites: {
-      walkRight: ['assets/img/personajes/cuy-mambolina/camina-derecha-1.png', 'assets/img/personajes/cuy-mambolina/camina-derecha-2.png'],
-      walkLeft:  ['assets/img/personajes/cuy-mambolina/camina-izquierda-1.png', 'assets/img/personajes/cuy-mambolina/camina-izquierda-2.png'],
-      jump:      'assets/img/personajes/cuy-mambolina/salto.png'
-    },
-    locked: false
-  }
-];
+const CHARACTERS: ICharacter[] = CHARACTERS_CONFIG;
 
 @Component({
   selector: 'app-lobby',
@@ -153,6 +120,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
 
   readonly characters    = CHARACTERS;
   readonly characterGifs = CHARACTER_GIFS;
+  readonly stages        = STAGES_CONFIG;
+  selectedStage          = signal<IStage>(STAGES_CONFIG[0]);
 
   private socket: Socket | null = null;
   private joining = false;
@@ -225,6 +194,15 @@ hoverCharacter() {
     this._playICharacterMusic(character.id);
   }
 
+  selectStage(stage: IStage) {
+    if (this.selectedStage().id === stage.id) return;
+    playSelect();
+    this.selectedStage.set(stage);
+    if (this.socket?.connected) {
+      this.socket.emit('select-stage', { stage });
+    }
+  }
+
   toggleMusic() {
     const muted = !this.musicMuted();
     this.musicMuted.set(muted);
@@ -267,11 +245,12 @@ hoverCharacter() {
     this.socketSvc.playerName = name;
     this.socketSvc.selectedCharacter = this.selectedCharacter();
 
+    const payload = { name, character: this.selectedCharacter(), stage: this.selectedStage() };
     if (this.socket!.connected) {
-      this.socket!.emit('join-lobby', { name, character: this.selectedCharacter() });
+      this.socket!.emit('join-lobby', payload);
     } else {
       this.socket!.once('connect', () => {
-        this.socket!.emit('join-lobby', { name, character: this.selectedCharacter() });
+        this.socket!.emit('join-lobby', payload);
       });
     }
   }

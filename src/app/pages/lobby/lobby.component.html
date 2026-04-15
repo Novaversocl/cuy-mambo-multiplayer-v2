@@ -98,6 +98,25 @@
   @if (state() === 'waiting') {
     <div class="versus-screen">
       <div class="versus-title">BUSCANDO RIVAL...</div>
+
+      <!-- Selector de escenario — solo visible mientras esperas -->
+      <div class="stage-section">
+        <span class="stage-label">ELIGE ESCENARIO</span>
+        <div class="stage-grid">
+          @for (stage of stages; track stage.id) {
+            <div
+              class="stage-card"
+              [class.selected]="selectedStage().id === stage.id"
+              (mouseenter)="hoverCharacter()"
+              (click)="selectStage(stage)"
+            >
+              <img [src]="stage.preview" [alt]="stage.name" />
+              <span>{{ stage.name }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
       <div class="versus-row">
         <div class="versus-player">
           <img [src]="selectedCharacter().preview" [alt]="selectedCharacter().name" />

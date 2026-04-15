@@ -1,5 +1,5 @@
 /**
- * PickupSystem.js — gestión de todos los objetos recogibles del mapa.
+ * CapsuleSystem.js — gestión de todos los objetos recogibles del mapa.
  *
  * Se reinicializa en cada ronda (init + cleanup) para limpiar el DOM correctamente.
  * ⚠️ Siempre llamar cleanup() ANTES de init() para evitar acumulación de elementos DOM.
@@ -22,22 +22,11 @@
  *     'local'  → ataca al rival remoto (emite player-hit)
  *     'remote' → ataca al jugador local (llama emitHit)
  *
- *   FireZone — zona de fuego en el centro del mapa:
- *     Se activa/desactiva cíclicamente. Causa daño por segundo al estar encima.
  */
 
 import { WeaponCapsule }                    from '../entities/weapons/WeaponCapsule.js';
 import { MysteryDoor }                      from '../entities/stage/MysteryDoor.js';
 import { SummonedCharacter, randomSummonId } from '../entities/characters/SummonedCharacter.js';
-
-const WEAPON_LABELS = {
-  food:         '🍖 LANZACOMIDA',
-  shotgun:      '💥 ESCOPETA',
-  mine:         '💣 MINA',
-  flamethrower: '🔥 LANZALLAMAS',
-  shield:       '🛡️ ESCUDO',
-  repulsor:     '⚡ REPULSOR',
-};
 
 const DOOR_WEAPON_TYPES = ['food', 'shotgun', 'mine', 'flamethrower'];
 
@@ -64,7 +53,6 @@ export class PickupSystem {
     ];
 
     this.game.summonedCharacters = [];
-    this.game.fireZones = [];
 
     this.game.mysteryDoors = [
       new MysteryDoor(gameContainer, Math.round(cw * 0.12), floorY - 20),
@@ -77,9 +65,6 @@ export class PickupSystem {
   cleanup() {
     this.game.weaponCapsules.forEach(c => c.remove()); this.game.weaponCapsules = [];
     this.game.mysteryDoors.forEach(d => d.remove());   this.game.mysteryDoors   = [];
-    clearTimeout(this.game._fireTimer);
-    this.game.fireZones?.forEach(z => z.remove());     this.game.fireZones = [];
-    this.game.audioManager.stopFireCrackle();
   }
 
   // ── Capsule collisions ────────────────────────────────────────────────────────
@@ -220,40 +205,4 @@ export class PickupSystem {
     setTimeout(() => flash.remove(), 500);
   }
 
-  // ── Fire zones ────────────────────────────────────────────────────────────────
-
-  startFireRotation() {
-    if (!this.game.fireZones?.length) return;
-
-    const cycle = () => {
-      if (!this.game.isRunning) return;
-      this.game.fireZones[0].activate();
-      this.game._fireTimer = setTimeout(() => {
-        if (!this.game.isRunning) return;
-        this.game.fireZones[0].deactivate();
-        this.game._fireTimer = setTimeout(cycle, this._inactiveDuration);
-      }, this._activeDuration);
-    };
-
-    this.game._fireTimer = setTimeout(cycle, 5000);
-  }
-
-  checkFireZones() {
-    const { fireZones, canFight, player, networkManager, audioManager } = this.game;
-    if (!fireZones?.length || !canFight) return;
-
-    const { x, y } = player.position;
-    const size = player.cubeSize;
-    let anyActive = false;
-
-    for (const zone of fireZones) {
-      if (zone.active) anyActive = true;
-      if (zone.isPlayerOver(x, y, size)) {
-        const dmg = zone.checkPlayer(x, y, size);
-        if (dmg > 0) networkManager?.emitHit(dmg);
-      }
-    }
-
-    anyActive ? audioManager.playFireCrackle() : audioManager.stopFireCrackle();
-  }
 }

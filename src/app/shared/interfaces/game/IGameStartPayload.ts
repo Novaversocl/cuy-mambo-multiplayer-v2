@@ -1,4 +1,5 @@
 import { ICharacter } from '../character/ICharacter';
+import { IStage }     from '../../config/stages.config';
 
 /** Payload que envía el servidor al iniciar una partida */
 export interface IGameStartPayload {
@@ -12,4 +13,6 @@ export interface IGameStartPayload {
   character:         ICharacter;
   /** Personaje del rival */
   opponentCharacter: ICharacter;
+  /** Escenario elegido por el primer jugador */
+  stage:             IStage | null;
 }

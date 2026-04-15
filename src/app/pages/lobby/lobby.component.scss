@@ -210,6 +210,74 @@
   }
 }
 
+/* ── Selector de escenario ─────────────────────────────────── */
+.stage-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.stage-label {
+  font-size: 0.35rem;
+  color: #888;
+  letter-spacing: 3px;
+}
+
+.stage-grid {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.stage-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem;
+  width: 80px;
+  border: 2px solid #333;
+  background: #0d0d1a;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+
+  img {
+    width: 72px;
+    height: 45px;
+    object-fit: cover;
+    image-rendering: pixelated;
+    filter: brightness(0.85);
+    transition: filter 0.15s;
+  }
+
+  span {
+    font-size: 0.25rem;
+    color: #888;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    border-color: #00ccff;
+    box-shadow: 0 0 14px #00ccff44;
+    transform: translateY(-3px);
+    img { filter: brightness(1.1); }
+    span { color: #ccc; }
+  }
+
+  &.selected {
+    border-color: #ffe066;
+    box-shadow: 0 0 20px #ffe06666, inset 0 0 20px #ffe06611;
+    background: #12110a;
+    transform: translateY(-3px);
+    img { filter: brightness(1.2); }
+    span { color: #ffe066; }
+  }
+}
+
 /* ── Formulario ────────────────────────────────────────────── */
 .form-area {
   display: flex;

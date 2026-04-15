@@ -1,4 +1,5 @@
 import { GAME_CONFIG } from '../utils/Constants.js';
+import { WIN_MUSIC, CHARACTERS_REGISTRY } from '../utils/CharactersRegistry.js';
 
 class AudioManager {
   constructor() {
@@ -11,9 +12,7 @@ class AudioManager {
     // Audios críticos — se descargan en background al iniciar
     const audioPreloads = [
       ['door-open',          'assets/Musica/door-open.mp3'],
-      ['end-win-cuy-mambo',     'assets/Musica/win-cuy-mambo.mp3'],
-      ['end-win-mago',          'assets/Musica/win-mago.mp3'],
-      ['end-win-cuy-mambolina', 'assets/Musica/mambo_mambo.mp3'],
+      ...CHARACTERS_REGISTRY.map(c => [`end-win-${c.id}`, c.winMusic]),
       ['end-lose',           'assets/Musica/lose.mp3'],
       ['round-1',            'assets/Musica/round-1-announce.mp3'],
       ['round-2',            'assets/Musica/round-2-announce.mp3'],
@@ -309,12 +308,7 @@ class AudioManager {
   playEndSound(result, charId = '') {
     let src;
     if (result === 'win') {
-      const winSongs = {
-        'cuy-mambo':     'assets/Musica/win-cuy-mambo.mp3',
-        'mago':          'assets/Musica/win-mago.mp3',
-        'cuy-mambolina': 'assets/Musica/mambo_mambo.mp3',
-      };
-      src = winSongs[charId] || 'assets/Musica/win-mago.mp3';
+      src = WIN_MUSIC[charId] || 'assets/Musica/win-mago.mp3';
     } else {
       src = 'assets/Musica/lose.mp3';
     }
@@ -395,55 +389,6 @@ class AudioManager {
     } catch (_) {}
   }
 
-  playFireCrackle() {
-    try {
-      if (this._fireNode) return; // ya sonando
-      const ctx  = this._ctx();
-
-      // Ruido blanco filtrado como fuego
-      const bufSize = ctx.sampleRate * 2;
-      const buffer  = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-      const data    = buffer.getChannelData(0);
-      for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
-
-      const src    = ctx.createBufferSource();
-      src.buffer   = buffer;
-      src.loop     = true;
-
-      // Filtro paso-bajo para suavizar el ruido → sonido de fuego
-      const filter       = ctx.createBiquadFilter();
-      filter.type        = 'lowpass';
-      filter.frequency.value = 800;
-      filter.Q.value     = 0.8;
-
-      // Oscilador de crackle grave
-      const osc      = ctx.createOscillator();
-      osc.type       = 'sawtooth';
-      osc.frequency.setValueAtTime(55, ctx.currentTime);
-      osc.frequency.setValueAtTime(48, ctx.currentTime + 0.3);
-
-      const gain     = ctx.createGain();
-      gain.gain.setValueAtTime(0.01, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 3.0); // crece en 3s igual que el fuego
-
-      const oscGain  = ctx.createGain();
-      oscGain.gain.value = 0.06;
-
-      src.connect(filter);
-      filter.connect(gain);
-      osc.connect(oscGain);
-      oscGain.connect(gain);
-      gain.connect(ctx.destination);
-
-      src.start();
-      osc.start();
-
-      this._fireNode     = src;
-      this._fireOsc      = osc;
-      this._fireGain     = gain;
-    } catch (_) {}
-  }
-
   // Crujido del bloque balance (madera bajo tensión)
   playBalanceCrack() {
     try {
@@ -494,21 +439,6 @@ class AudioManager {
         src.connect(gain); gain.connect(ctx.destination);
         src.start();
       }, 100);
-    } catch (_) {}
-  }
-
-  stopFireCrackle() {
-    try {
-      if (!this._fireNode) return;
-      const ctx = this._ctx();
-      this._fireGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
-      setTimeout(() => {
-        try { this._fireNode.stop(); } catch (_) {}
-        try { this._fireOsc.stop();  } catch (_) {}
-        this._fireNode = null;
-        this._fireOsc  = null;
-        this._fireGain = null;
-      }, 450);
     } catch (_) {}
   }
 

@@ -1,8 +1,5 @@
-const DANCE_GIFS = {
-  'mago':          'assets/img/bailes/mago/baile_mago_1.gif',
-  'cuy-mambo':     'assets/img/bailes/cuy-mambo/baile_cuy-mambo_1.gif',
-  'cuy-mambolina': 'assets/img/bailes/cuy-mambolina/baile_cuy-mambolina_01.gif',
-};
+import { DANCE_GIFS }    from '../utils/CharactersRegistry.js';
+import { WEAPON_ICONS } from '../utils/WeaponsRegistry.js';
 
 class UIManager {
   constructor(game) {
@@ -176,8 +173,7 @@ class UIManager {
       el.textContent = '';
       el.style.display = 'none';
     } else {
-      const icons = { food: '🍖', shotgun: '💥', mine: '💣', flamethrower: '🔥' };
-      el.textContent = icons[weaponType] || '';
+      el.textContent = WEAPON_ICONS[weaponType] || '';
       el.style.display = 'block';
     }
   }

@@ -32,6 +32,7 @@ declare global {
     __scaleMobileMonitor?:        () => void;
     __cuyMamboCharacter?:         unknown;
     __cuyMamboOpponentCharacter?: unknown;
+    __cuyMamboStage?:             unknown;
   }
 }
 
@@ -123,6 +124,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     window.__cuyMamboReturnToLobby    = () => this.router.navigate(['/lobby']);
     window.__cuyMamboCharacter        = payload.character;
     window.__cuyMamboOpponentCharacter = payload.opponentCharacter;
+    window.__cuyMamboStage            = payload.stage;
 
     // 2) Cargar el motor del juego (crea window.__cuyMamboInstance)
     this.gameScriptEl      = document.createElement('script');
@@ -173,5 +175,6 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     delete window.__cuyMamboReturnToLobby;
     delete window.__cuyMamboCharacter;
     delete window.__cuyMamboOpponentCharacter;
+    delete window.__cuyMamboStage;
   }
 }
