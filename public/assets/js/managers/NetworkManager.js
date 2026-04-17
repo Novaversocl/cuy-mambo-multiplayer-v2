@@ -214,8 +214,9 @@ class NetworkManager {
         const rW      = rect.width;
         const rH      = rect.height;
         const beamTop = rY + rH * 0.58;
+        const dir = this.game.remotePlayer?.currentDirection || direction;
         beam.style.top = beamTop + 'px';
-        if (direction === 'right') {
+        if (dir === 'right') {
           beam.style.left  = (rX + rW) + 'px';
           beam.style.width = (containerW - rX - rW) + 'px';
           beam.style.background = `linear-gradient(to right, #ffee00 0%, #ffee00 85%, transparent 100%)`;
