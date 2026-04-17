@@ -20,9 +20,10 @@ class RemotePlayer {
   }
 
   // Recibe el estado del servidor — guarda destino, aplica sprite inmediatamente
-  applyState({ x, y, sprite, spriteSize, spriteTransform }) {
+  applyState({ x, y, sprite, spriteSize, spriteTransform, direction }) {
     this._target.x = x;
     this._target.y = y;
+    if (direction) this.direction = direction;
 
     // Primera actualización: snap directo para evitar que "vuele" desde (0,0)
     if (!this._initialized) {
