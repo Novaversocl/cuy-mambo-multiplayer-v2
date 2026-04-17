@@ -214,7 +214,7 @@ class NetworkManager {
         const rW      = rect.width;
         const rH      = rect.height;
         const beamTop = rY + rH * 0.58;
-        const dir = this.game.remotePlayer?.currentDirection || direction;
+        const dir = this.game.remotePlayer?.direction || direction;
         beam.style.top = beamTop + 'px';
         if (dir === 'right') {
           beam.style.left  = (rX + rW) + 'px';
