@@ -256,6 +256,6 @@ Este repositorio está disponible **solo para fines de evaluación técnica, aca
 
 Los personajes, sprites, música y videos son propiedad intelectual original y no pueden usarse fuera de este repositorio.
 
-Para consultas comerciales: portafolioformulario2024@gmail.com
+Para consultas comerciales: juanestrada.n@gmail.com
 
 Ver [LICENSE](LICENSE) para más detalles.
