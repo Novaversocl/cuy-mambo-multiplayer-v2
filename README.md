@@ -54,6 +54,7 @@ El servidor escucha en `http://localhost:3000`.
 
 ```bash
 pnpm start
+npm run start:lan
 ```
 
 Abre `http://localhost:4200` en el navegador.
